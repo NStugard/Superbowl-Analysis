@@ -1,0 +1,49 @@
+---
+title: "Superbowl Data"
+author: "Nick Stugard"
+date: "10/20/2020"
+output: html_document
+---
+
+# The first thing we typically need to do with R is to install and run the packages we are going to need to use.  The three tick marks (tilde) chunks our code into parts to run at one time.
+```
+library(tidyverse)
+library(ggplot2)
+```
+
+# Next we import the data we are going to be using.  We first need to know the location of the data locally (on your computer) and then import it into R.
+
+superbowls <- read.csv('superbowl.csv')
+
+# Now that we have our data (and it has been cleaned) we can do data analysis and visualizations.  We will 'pipe' the data into the functions and commands using %>% and use indents with the 'TAB' key to keep our code organized and readable.
+
+# First we will look at the number of points the winning team scored.
+
+superbowls %>%
+  ggplot(aes(x = SB , y = WinnerPts)) +
+  geom_col()
+
+# Next we will group the winning scores in a histogram.
+
+superbowls %>%
+  ggplot(aes(x = WinnerPts)) +
+  geom_histogram()
+
+# Let's change the bin width (class width) for the histogram.
+
+superbowls %>%
+  ggplot(aes(x = WinnerPts)) +
+  geom_histogram(binwidth = 10)
+
+# What can we say about the data?  What can we say about the number of points the winning team scores most frequenty?
+
+# We can also do data analysis and find numerical summaries using familiar statistical techniques.  But first we must turn the column of data in our table into a separate vector.
+
+win_pts <- superbowls[,"WinnerPts"]
+
+# Now we can calculuate the mean and median.  We will also be storing these values as variables.
+
+avg_win_pts <- mean(win_pts)
+med_win_pts <- median(win_pts)
+
+
